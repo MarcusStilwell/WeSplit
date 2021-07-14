@@ -7,10 +7,17 @@
 
 import SwiftUI
 
+struct redForZero: ViewModifier{
+    func body(content: Content) -> some View {
+        Text("Hello World")
+    }
+}
+
 struct ContentView: View {
     @State private var checkAmount = ""
     @State private var numberOfPeople = ""
     @State private var tipPercentage = 2
+    @State private var tipIsZero = false
     let tipPercentages = [10, 15, 20, 25, 0]
     var totalPerPerson: Double{
         let peopleCount = Double(Int(numberOfPeople) ?? 0 + 2)
@@ -51,8 +58,9 @@ struct ContentView: View {
                 Text("$\(totalPerPerson, specifier: "%.2f")")
             }
             
-            Section(header: Text("Total bill, not per person")){
+            Section(header: Text("Total bill")){
                 Text("$\(totalForAll, specifier: "%.2f")")
+                    .foregroundColor(tipPercentage == 4 ? .red : .black)
             }
         }
         }
